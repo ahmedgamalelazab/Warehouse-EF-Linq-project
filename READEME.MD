@@ -5,6 +5,7 @@
 * you can create suppliers and clients . 
 * supplier can fill the warehouse with his items .
 * system can assign for any client Banking order permission .
+* system can handle any permission . 
 
 # Demo : 
 
