@@ -1,0 +1,995 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="LINQ_EF_PROJECTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BankingOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="createdAt" Type="date" />
+          <Property Name="updatedAt" Type="date" />
+          <Property Name="destinationID" Type="int" Nullable="false" />
+          <Property Name="confirmed" Type="int" />
+          <Property Name="totalMonery" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BankingOrderItems">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BankingOrderID" Type="int" Nullable="false" />
+          <Property Name="ItemID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="ProductionDate" Type="date" Nullable="false" />
+          <Property Name="ExpireDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="telephone" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="fax" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="mobile" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="mail" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="website" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ExchangePermission">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SourceWarehouseID" Type="int" Nullable="false" />
+          <Property Name="DestinationWarehouseID" Type="int" Nullable="false" />
+          <Property Name="SupplierID" Type="int" Nullable="false" />
+          <Property Name="createdAt" Type="date" />
+          <Property Name="updatedAt" Type="date" />
+          <Property Name="confirmed" Type="int" />
+        </EntityType>
+        <EntityType Name="ExchangePermissionItems">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ExchangePermissionID" Type="int" Nullable="false" />
+          <Property Name="ItemID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="productionDate" Type="date" Nullable="false" />
+          <Property Name="ExpireDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="MeasureUnit" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PricePerUnit" Type="int" Nullable="false" />
+          <Property Name="WarehouseID" Type="int" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="telephone" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="fax" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="mobile" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="mail" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="website" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="SupplyPermission">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WarehouseID" Type="int" Nullable="false" />
+          <Property Name="SupplierID" Type="int" Nullable="false" />
+          <Property Name="CreatedAt" Type="date" />
+          <Property Name="updatedAt" Type="date" />
+          <Property Name="confirmed" Type="int" />
+        </EntityType>
+        <EntityType Name="SupplyPermissionItems">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SupplyPermissionID" Type="int" Nullable="false" />
+          <Property Name="ItemID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="ProducationDate" Type="date" Nullable="false" />
+          <Property Name="ExpireDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Warehouse">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="WarehouseKeeperID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WarehouseKeeper">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="phone" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="salary" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_bankingorder_client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BankingOrder" Type="Self.BankingOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="BankingOrder">
+              <PropertyRef Name="destinationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_bankingorderitems">
+          <End Role="BankingOrder" Type="Self.BankingOrder" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BankingOrderItems" Type="Self.BankingOrderItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BankingOrder">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="BankingOrderItems">
+              <PropertyRef Name="BankingOrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_bankingorderitems_item">
+          <End Role="Item" Type="Self.Item" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BankingOrderItems" Type="Self.BankingOrderItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="BankingOrderItems">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_exchangepermission">
+          <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ExchangePermission" Type="Self.ExchangePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ExchangePermission">
+              <PropertyRef Name="SourceWarehouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_exchangepermission_Dest">
+          <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
+          <End Role="ExchangePermission" Type="Self.ExchangePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ExchangePermission">
+              <PropertyRef Name="DestinationWarehouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_exchangepermission_supplier">
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ExchangePermission" Type="Self.ExchangePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ExchangePermission">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_exchangepermissionitems">
+          <End Role="ExchangePermission" Type="Self.ExchangePermission" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ExchangePermissionItems" Type="Self.ExchangePermissionItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExchangePermission">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ExchangePermissionItems">
+              <PropertyRef Name="ExchangePermissionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_exchangepermissionitems_forign">
+          <End Role="Item" Type="Self.Item" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ExchangePermissionItems" Type="Self.ExchangePermissionItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ExchangePermissionItems">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_item_warehouse">
+          <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="0..1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="WarehouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_supplypermission_supplier">
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SupplyPermission" Type="Self.SupplyPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SupplyPermission">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_supplypermission_warehouse">
+          <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SupplyPermission" Type="Self.SupplyPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SupplyPermission">
+              <PropertyRef Name="WarehouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_supplypermissionitems">
+          <End Role="SupplyPermission" Type="Self.SupplyPermission" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SupplyPermissionItems" Type="Self.SupplyPermissionItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupplyPermission">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SupplyPermissionItems">
+              <PropertyRef Name="SupplyPermissionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_supplypermissionitems_item">
+          <End Role="Item" Type="Self.Item" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SupplyPermissionItems" Type="Self.SupplyPermissionItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SupplyPermissionItems">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_warehouse_warehousekeeper">
+          <End Role="WarehouseKeeper" Type="Self.WarehouseKeeper" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WarehouseKeeper">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Warehouse">
+              <PropertyRef Name="WarehouseKeeperID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LINQ_EF_PROJECTModelStoreContainer">
+          <EntitySet Name="BankingOrder" EntityType="Self.BankingOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BankingOrderItems" EntityType="Self.BankingOrderItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExchangePermission" EntityType="Self.ExchangePermission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExchangePermissionItems" EntityType="Self.ExchangePermissionItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SupplyPermission" EntityType="Self.SupplyPermission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SupplyPermissionItems" EntityType="Self.SupplyPermissionItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Warehouse" EntityType="Self.Warehouse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WarehouseKeeper" EntityType="Self.WarehouseKeeper" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_bankingorder_client" Association="Self.fk_bankingorder_client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="BankingOrder" EntitySet="BankingOrder" />
+          </AssociationSet>
+          <AssociationSet Name="fk_bankingorderitems" Association="Self.fk_bankingorderitems">
+            <End Role="BankingOrder" EntitySet="BankingOrder" />
+            <End Role="BankingOrderItems" EntitySet="BankingOrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="fk_bankingorderitems_item" Association="Self.fk_bankingorderitems_item">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="BankingOrderItems" EntitySet="BankingOrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="fk_exchangepermission" Association="Self.fk_exchangepermission">
+            <End Role="Warehouse" EntitySet="Warehouse" />
+            <End Role="ExchangePermission" EntitySet="ExchangePermission" />
+          </AssociationSet>
+          <AssociationSet Name="fk_exchangepermission_Dest" Association="Self.fk_exchangepermission_Dest">
+            <End Role="Warehouse" EntitySet="Warehouse" />
+            <End Role="ExchangePermission" EntitySet="ExchangePermission" />
+          </AssociationSet>
+          <AssociationSet Name="fk_exchangepermission_supplier" Association="Self.fk_exchangepermission_supplier">
+            <End Role="Supplier" EntitySet="Supplier" />
+            <End Role="ExchangePermission" EntitySet="ExchangePermission" />
+          </AssociationSet>
+          <AssociationSet Name="fk_exchangepermissionitems" Association="Self.fk_exchangepermissionitems">
+            <End Role="ExchangePermission" EntitySet="ExchangePermission" />
+            <End Role="ExchangePermissionItems" EntitySet="ExchangePermissionItems" />
+          </AssociationSet>
+          <AssociationSet Name="fk_exchangepermissionitems_forign" Association="Self.fk_exchangepermissionitems_forign">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="ExchangePermissionItems" EntitySet="ExchangePermissionItems" />
+          </AssociationSet>
+          <AssociationSet Name="fk_item_warehouse" Association="Self.fk_item_warehouse">
+            <End Role="Warehouse" EntitySet="Warehouse" />
+            <End Role="Item" EntitySet="Item" />
+          </AssociationSet>
+          <AssociationSet Name="fk_supplypermission_supplier" Association="Self.fk_supplypermission_supplier">
+            <End Role="Supplier" EntitySet="Supplier" />
+            <End Role="SupplyPermission" EntitySet="SupplyPermission" />
+          </AssociationSet>
+          <AssociationSet Name="fk_supplypermission_warehouse" Association="Self.fk_supplypermission_warehouse">
+            <End Role="Warehouse" EntitySet="Warehouse" />
+            <End Role="SupplyPermission" EntitySet="SupplyPermission" />
+          </AssociationSet>
+          <AssociationSet Name="fk_supplypermissionitems" Association="Self.fk_supplypermissionitems">
+            <End Role="SupplyPermission" EntitySet="SupplyPermission" />
+            <End Role="SupplyPermissionItems" EntitySet="SupplyPermissionItems" />
+          </AssociationSet>
+          <AssociationSet Name="fk_supplypermissionitems_item" Association="Self.fk_supplypermissionitems_item">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="SupplyPermissionItems" EntitySet="SupplyPermissionItems" />
+          </AssociationSet>
+          <AssociationSet Name="fk_warehouse_warehousekeeper" Association="Self.fk_warehouse_warehousekeeper">
+            <End Role="WarehouseKeeper" EntitySet="WarehouseKeeper" />
+            <End Role="Warehouse" EntitySet="Warehouse" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LINQ_EF_PROJECTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BankingOrderItem">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BankingOrderID" Type="Int32" Nullable="false" />
+          <Property Name="ItemID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="ProductionDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ExpireDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Item" Relationship="LINQ_EF_PROJECTModel.fk_bankingorderitems_item" FromRole="BankingOrderItem" ToRole="Item" />
+          <NavigationProperty Name="BankingOrder" Relationship="LINQ_EF_PROJECTModel.fk_bankingorderitems" FromRole="BankingOrderItem" ToRole="BankingOrder" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telephone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fax" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mobile" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="website" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BankingOrders" Relationship="LINQ_EF_PROJECTModel.fk_bankingorder_client" FromRole="Client" ToRole="BankingOrder" />
+        </EntityType>
+        <EntityType Name="ExchangePermissionItem">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExchangePermissionID" Type="Int32" Nullable="false" />
+          <Property Name="ItemID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="productionDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ExpireDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Item" Relationship="LINQ_EF_PROJECTModel.fk_exchangepermissionitems_forign" FromRole="ExchangePermissionItem" ToRole="Item" />
+          <NavigationProperty Name="ExchangePermission" Relationship="LINQ_EF_PROJECTModel.fk_exchangepermissionitems" FromRole="ExchangePermissionItem" ToRole="ExchangePermission" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telephone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fax" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mobile" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="website" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SupplyPermissions" Relationship="LINQ_EF_PROJECTModel.fk_supplypermission_supplier" FromRole="Supplier" ToRole="SupplyPermission" />
+          <NavigationProperty Name="ExchangePermissions" Relationship="LINQ_EF_PROJECTModel.fk_exchangepermission_supplier" FromRole="Supplier" ToRole="ExchangePermission" />
+        </EntityType>
+        <EntityType Name="SupplyPermissionItem">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SupplyPermissionID" Type="Int32" Nullable="false" />
+          <Property Name="ItemID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="ProducationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ExpireDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Item" Relationship="LINQ_EF_PROJECTModel.fk_supplypermissionitems_item" FromRole="SupplyPermissionItem" ToRole="Item" />
+          <NavigationProperty Name="SupplyPermission" Relationship="LINQ_EF_PROJECTModel.fk_supplypermissionitems" FromRole="SupplyPermissionItem" ToRole="SupplyPermission" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Warehouse">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="WarehouseKeeperID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="WarehouseKeeper" Relationship="Self.fk_warehouse_warehousekeeper" FromRole="Warehouse" ToRole="WarehouseKeeper" />
+          <NavigationProperty Name="Items" Relationship="LINQ_EF_PROJECTModel.fk_item_warehouse" FromRole="Warehouse" ToRole="Item" />
+          <NavigationProperty Name="SupplyPermissions" Relationship="LINQ_EF_PROJECTModel.fk_supplypermission_warehouse" FromRole="Warehouse" ToRole="SupplyPermission" />
+          <NavigationProperty Name="ExchangePermissions" Relationship="LINQ_EF_PROJECTModel.fk_exchangepermission" FromRole="Warehouse" ToRole="ExchangePermission" />
+          <NavigationProperty Name="ExchangePermissions1" Relationship="LINQ_EF_PROJECTModel.fk_exchangepermission_Dest" FromRole="Warehouse" ToRole="ExchangePermission" />
+        </EntityType>
+        <EntityType Name="WarehouseKeeper">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="salary" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Warehouses" Relationship="Self.fk_warehouse_warehousekeeper" FromRole="WarehouseKeeper" ToRole="Warehouse" />
+        </EntityType>
+        <Association Name="fk_warehouse_warehousekeeper">
+          <End Role="WarehouseKeeper" Type="Self.WarehouseKeeper" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WarehouseKeeper">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Warehouse">
+              <PropertyRef Name="WarehouseKeeperID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LINQ_EF_PROJECTEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BankingOrderItems" EntityType="Self.BankingOrderItem" />
+          <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="ExchangePermissionItems" EntityType="Self.ExchangePermissionItem" />
+          <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
+          <EntitySet Name="SupplyPermissionItems" EntityType="Self.SupplyPermissionItem" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Warehouses" EntityType="Self.Warehouse" />
+          <EntitySet Name="WarehouseKeepers" EntityType="Self.WarehouseKeeper" />
+          <AssociationSet Name="fk_warehouse_warehousekeeper" Association="Self.fk_warehouse_warehousekeeper">
+            <End Role="WarehouseKeeper" EntitySet="WarehouseKeepers" />
+            <End Role="Warehouse" EntitySet="Warehouses" />
+          </AssociationSet>
+          <EntitySet Name="Items" EntityType="LINQ_EF_PROJECTModel.Item" />
+          <AssociationSet Name="fk_bankingorderitems_item" Association="LINQ_EF_PROJECTModel.fk_bankingorderitems_item">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="BankingOrderItem" EntitySet="BankingOrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="fk_exchangepermissionitems_forign" Association="LINQ_EF_PROJECTModel.fk_exchangepermissionitems_forign">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="ExchangePermissionItem" EntitySet="ExchangePermissionItems" />
+          </AssociationSet>
+          <AssociationSet Name="fk_item_warehouse" Association="LINQ_EF_PROJECTModel.fk_item_warehouse">
+            <End Role="Warehouse" EntitySet="Warehouses" />
+            <End Role="Item" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="fk_supplypermissionitems_item" Association="LINQ_EF_PROJECTModel.fk_supplypermissionitems_item">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="SupplyPermissionItem" EntitySet="SupplyPermissionItems" />
+          </AssociationSet>
+          <EntitySet Name="SupplyPermissions" EntityType="LINQ_EF_PROJECTModel.SupplyPermission" />
+          <AssociationSet Name="fk_supplypermission_supplier" Association="LINQ_EF_PROJECTModel.fk_supplypermission_supplier">
+            <End Role="Supplier" EntitySet="Suppliers" />
+            <End Role="SupplyPermission" EntitySet="SupplyPermissions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_supplypermission_warehouse" Association="LINQ_EF_PROJECTModel.fk_supplypermission_warehouse">
+            <End Role="Warehouse" EntitySet="Warehouses" />
+            <End Role="SupplyPermission" EntitySet="SupplyPermissions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_supplypermissionitems" Association="LINQ_EF_PROJECTModel.fk_supplypermissionitems">
+            <End Role="SupplyPermission" EntitySet="SupplyPermissions" />
+            <End Role="SupplyPermissionItem" EntitySet="SupplyPermissionItems" />
+          </AssociationSet>
+          <EntitySet Name="ExchangePermissions" EntityType="LINQ_EF_PROJECTModel.ExchangePermission" />
+          <AssociationSet Name="fk_exchangepermission" Association="LINQ_EF_PROJECTModel.fk_exchangepermission">
+            <End Role="Warehouse" EntitySet="Warehouses" />
+            <End Role="ExchangePermission" EntitySet="ExchangePermissions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_exchangepermission_Dest" Association="LINQ_EF_PROJECTModel.fk_exchangepermission_Dest">
+            <End Role="Warehouse" EntitySet="Warehouses" />
+            <End Role="ExchangePermission" EntitySet="ExchangePermissions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_exchangepermission_supplier" Association="LINQ_EF_PROJECTModel.fk_exchangepermission_supplier">
+            <End Role="Supplier" EntitySet="Suppliers" />
+            <End Role="ExchangePermission" EntitySet="ExchangePermissions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_exchangepermissionitems" Association="LINQ_EF_PROJECTModel.fk_exchangepermissionitems">
+            <End Role="ExchangePermission" EntitySet="ExchangePermissions" />
+            <End Role="ExchangePermissionItem" EntitySet="ExchangePermissionItems" />
+          </AssociationSet>
+          <EntitySet Name="BankingOrders" EntityType="LINQ_EF_PROJECTModel.BankingOrder" />
+          <AssociationSet Name="fk_bankingorder_client" Association="LINQ_EF_PROJECTModel.fk_bankingorder_client">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="BankingOrder" EntitySet="BankingOrders" />
+          </AssociationSet>
+          <AssociationSet Name="fk_bankingorderitems" Association="LINQ_EF_PROJECTModel.fk_bankingorderitems">
+            <End Role="BankingOrder" EntitySet="BankingOrders" />
+            <End Role="BankingOrderItem" EntitySet="BankingOrderItems" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MeasureUnit" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PricePerUnit" Type="Int32" Nullable="false" />
+          <Property Name="WarehouseID" Type="Int32" />
+          <NavigationProperty Name="BankingOrderItems" Relationship="LINQ_EF_PROJECTModel.fk_bankingorderitems_item" FromRole="Item" ToRole="BankingOrderItem" />
+          <NavigationProperty Name="ExchangePermissionItems" Relationship="LINQ_EF_PROJECTModel.fk_exchangepermissionitems_forign" FromRole="Item" ToRole="ExchangePermissionItem" />
+          <NavigationProperty Name="Warehouse" Relationship="LINQ_EF_PROJECTModel.fk_item_warehouse" FromRole="Item" ToRole="Warehouse" />
+          <NavigationProperty Name="SupplyPermissionItems" Relationship="LINQ_EF_PROJECTModel.fk_supplypermissionitems_item" FromRole="Item" ToRole="SupplyPermissionItem" />
+        </EntityType>
+        <Association Name="fk_bankingorderitems_item">
+          <End Type="LINQ_EF_PROJECTModel.Item" Role="Item" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LINQ_EF_PROJECTModel.BankingOrderItem" Role="BankingOrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="BankingOrderItem">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_exchangepermissionitems_forign">
+          <End Type="LINQ_EF_PROJECTModel.Item" Role="Item" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LINQ_EF_PROJECTModel.ExchangePermissionItem" Role="ExchangePermissionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ExchangePermissionItem">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_item_warehouse">
+          <End Type="LINQ_EF_PROJECTModel.Warehouse" Role="Warehouse" Multiplicity="0..1" />
+          <End Type="LINQ_EF_PROJECTModel.Item" Role="Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="WarehouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_supplypermissionitems_item">
+          <End Type="LINQ_EF_PROJECTModel.Item" Role="Item" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LINQ_EF_PROJECTModel.SupplyPermissionItem" Role="SupplyPermissionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SupplyPermissionItem">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SupplyPermission">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WarehouseID" Type="Int32" Nullable="false" />
+          <Property Name="SupplierID" Type="Int32" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="0" />
+          <Property Name="updatedAt" Type="DateTime" Precision="0" />
+          <Property Name="confirmed" Type="Int32" />
+          <NavigationProperty Name="Supplier" Relationship="LINQ_EF_PROJECTModel.fk_supplypermission_supplier" FromRole="SupplyPermission" ToRole="Supplier" />
+          <NavigationProperty Name="Warehouse" Relationship="LINQ_EF_PROJECTModel.fk_supplypermission_warehouse" FromRole="SupplyPermission" ToRole="Warehouse" />
+          <NavigationProperty Name="SupplyPermissionItems" Relationship="LINQ_EF_PROJECTModel.fk_supplypermissionitems" FromRole="SupplyPermission" ToRole="SupplyPermissionItem" />
+        </EntityType>
+        <Association Name="fk_supplypermission_supplier">
+          <End Type="LINQ_EF_PROJECTModel.Supplier" Role="Supplier" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LINQ_EF_PROJECTModel.SupplyPermission" Role="SupplyPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SupplyPermission">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_supplypermission_warehouse">
+          <End Type="LINQ_EF_PROJECTModel.Warehouse" Role="Warehouse" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LINQ_EF_PROJECTModel.SupplyPermission" Role="SupplyPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SupplyPermission">
+              <PropertyRef Name="WarehouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_supplypermissionitems">
+          <End Type="LINQ_EF_PROJECTModel.SupplyPermission" Role="SupplyPermission" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LINQ_EF_PROJECTModel.SupplyPermissionItem" Role="SupplyPermissionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupplyPermission">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SupplyPermissionItem">
+              <PropertyRef Name="SupplyPermissionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ExchangePermission">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SourceWarehouseID" Type="Int32" Nullable="false" />
+          <Property Name="DestinationWarehouseID" Type="Int32" Nullable="false" />
+          <Property Name="SupplierID" Type="Int32" Nullable="false" />
+          <Property Name="createdAt" Type="DateTime" Precision="0" />
+          <Property Name="updatedAt" Type="DateTime" Precision="0" />
+          <Property Name="confirmed" Type="Int32" />
+          <NavigationProperty Name="Warehouse" Relationship="LINQ_EF_PROJECTModel.fk_exchangepermission" FromRole="ExchangePermission" ToRole="Warehouse" />
+          <NavigationProperty Name="Warehouse1" Relationship="LINQ_EF_PROJECTModel.fk_exchangepermission_Dest" FromRole="ExchangePermission" ToRole="Warehouse" />
+          <NavigationProperty Name="Supplier" Relationship="LINQ_EF_PROJECTModel.fk_exchangepermission_supplier" FromRole="ExchangePermission" ToRole="Supplier" />
+          <NavigationProperty Name="ExchangePermissionItems" Relationship="LINQ_EF_PROJECTModel.fk_exchangepermissionitems" FromRole="ExchangePermission" ToRole="ExchangePermissionItem" />
+        </EntityType>
+        <Association Name="fk_exchangepermission">
+          <End Type="LINQ_EF_PROJECTModel.Warehouse" Role="Warehouse" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LINQ_EF_PROJECTModel.ExchangePermission" Role="ExchangePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ExchangePermission">
+              <PropertyRef Name="SourceWarehouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_exchangepermission_Dest">
+          <End Type="LINQ_EF_PROJECTModel.Warehouse" Role="Warehouse" Multiplicity="1" />
+          <End Type="LINQ_EF_PROJECTModel.ExchangePermission" Role="ExchangePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ExchangePermission">
+              <PropertyRef Name="DestinationWarehouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_exchangepermission_supplier">
+          <End Type="LINQ_EF_PROJECTModel.Supplier" Role="Supplier" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LINQ_EF_PROJECTModel.ExchangePermission" Role="ExchangePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ExchangePermission">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_exchangepermissionitems">
+          <End Type="LINQ_EF_PROJECTModel.ExchangePermission" Role="ExchangePermission" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LINQ_EF_PROJECTModel.ExchangePermissionItem" Role="ExchangePermissionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExchangePermission">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ExchangePermissionItem">
+              <PropertyRef Name="ExchangePermissionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="BankingOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="createdAt" Type="DateTime" Precision="0" />
+          <Property Name="updatedAt" Type="DateTime" Precision="0" />
+          <Property Name="destinationID" Type="Int32" Nullable="false" />
+          <Property Name="confirmed" Type="Int32" />
+          <Property Name="totalMonery" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="LINQ_EF_PROJECTModel.fk_bankingorder_client" FromRole="BankingOrder" ToRole="Client" />
+          <NavigationProperty Name="BankingOrderItems" Relationship="LINQ_EF_PROJECTModel.fk_bankingorderitems" FromRole="BankingOrder" ToRole="BankingOrderItem" />
+        </EntityType>
+        <Association Name="fk_bankingorder_client">
+          <End Type="LINQ_EF_PROJECTModel.Client" Role="Client" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LINQ_EF_PROJECTModel.BankingOrder" Role="BankingOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="BankingOrder">
+              <PropertyRef Name="destinationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_bankingorderitems">
+          <End Type="LINQ_EF_PROJECTModel.BankingOrder" Role="BankingOrder" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LINQ_EF_PROJECTModel.BankingOrderItem" Role="BankingOrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BankingOrder">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="BankingOrderItem">
+              <PropertyRef Name="BankingOrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LINQ_EF_PROJECTModelStoreContainer" CdmEntityContainer="LINQ_EF_PROJECTEntities">
+          <EntitySetMapping Name="BankingOrderItems">
+            <EntityTypeMapping TypeName="LINQ_EF_PROJECTModel.BankingOrderItem">
+              <MappingFragment StoreEntitySet="BankingOrderItems">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="BankingOrderID" ColumnName="BankingOrderID" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ProductionDate" ColumnName="ProductionDate" />
+                <ScalarProperty Name="ExpireDate" ColumnName="ExpireDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="LINQ_EF_PROJECTModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="telephone" ColumnName="telephone" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="website" ColumnName="website" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExchangePermissionItems">
+            <EntityTypeMapping TypeName="LINQ_EF_PROJECTModel.ExchangePermissionItem">
+              <MappingFragment StoreEntitySet="ExchangePermissionItems">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ExchangePermissionID" ColumnName="ExchangePermissionID" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="productionDate" ColumnName="productionDate" />
+                <ScalarProperty Name="ExpireDate" ColumnName="ExpireDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suppliers">
+            <EntityTypeMapping TypeName="LINQ_EF_PROJECTModel.Supplier">
+              <MappingFragment StoreEntitySet="Supplier">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="telephone" ColumnName="telephone" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="website" ColumnName="website" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SupplyPermissionItems">
+            <EntityTypeMapping TypeName="LINQ_EF_PROJECTModel.SupplyPermissionItem">
+              <MappingFragment StoreEntitySet="SupplyPermissionItems">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="SupplyPermissionID" ColumnName="SupplyPermissionID" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ProducationDate" ColumnName="ProducationDate" />
+                <ScalarProperty Name="ExpireDate" ColumnName="ExpireDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="LINQ_EF_PROJECTModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Warehouses">
+            <EntityTypeMapping TypeName="LINQ_EF_PROJECTModel.Warehouse">
+              <MappingFragment StoreEntitySet="Warehouse">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="WarehouseKeeperID" ColumnName="WarehouseKeeperID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WarehouseKeepers">
+            <EntityTypeMapping TypeName="LINQ_EF_PROJECTModel.WarehouseKeeper">
+              <MappingFragment StoreEntitySet="WarehouseKeeper">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="salary" ColumnName="salary" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Items">
+            <EntityTypeMapping TypeName="LINQ_EF_PROJECTModel.Item">
+              <MappingFragment StoreEntitySet="Item">
+                <ScalarProperty Name="WarehouseID" ColumnName="WarehouseID" />
+                <ScalarProperty Name="PricePerUnit" ColumnName="PricePerUnit" />
+                <ScalarProperty Name="MeasureUnit" ColumnName="MeasureUnit" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SupplyPermissions">
+            <EntityTypeMapping TypeName="LINQ_EF_PROJECTModel.SupplyPermission">
+              <MappingFragment StoreEntitySet="SupplyPermission">
+                <ScalarProperty Name="confirmed" ColumnName="confirmed" />
+                <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="WarehouseID" ColumnName="WarehouseID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExchangePermissions">
+            <EntityTypeMapping TypeName="LINQ_EF_PROJECTModel.ExchangePermission">
+              <MappingFragment StoreEntitySet="ExchangePermission">
+                <ScalarProperty Name="confirmed" ColumnName="confirmed" />
+                <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="DestinationWarehouseID" ColumnName="DestinationWarehouseID" />
+                <ScalarProperty Name="SourceWarehouseID" ColumnName="SourceWarehouseID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BankingOrders">
+            <EntityTypeMapping TypeName="LINQ_EF_PROJECTModel.BankingOrder">
+              <MappingFragment StoreEntitySet="BankingOrder">
+                <ScalarProperty Name="totalMonery" ColumnName="totalMonery" />
+                <ScalarProperty Name="confirmed" ColumnName="confirmed" />
+                <ScalarProperty Name="destinationID" ColumnName="destinationID" />
+                <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E1C68796-0395-49C7-902D-720D44BF20E9}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Warehouse_items_Storage</RootNamespace>
+    <AssemblyName>Warehouse items Storage</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppMainWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AppMainWindow.Designer.cs">
+      <DependentUpon>AppMainWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AppModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="BandkingOrderPermission.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BandkingOrderPermission.Designer.cs">
+      <DependentUpon>BandkingOrderPermission.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BankingOrder.cs">
+      <DependentUpon>AppModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BankingOrderItem.cs">
+      <DependentUpon>AppModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Client.cs">
+      <DependentUpon>AppModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="clientPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="clientPage.Designer.cs">
+      <DependentUpon>clientPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ClientSupplierAddingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClientSupplierAddingForm.Designer.cs">
+      <DependentUpon>ClientSupplierAddingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExchangePermission.cs">
+      <DependentUpon>AppModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExchangePermissionItem.cs">
+      <DependentUpon>AppModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GeneralPurposeItemForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GeneralPurposeItemForm.Designer.cs">
+      <DependentUpon>GeneralPurposeItemForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Item.cs">
+      <DependentUpon>AppModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="itemControlPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="itemControlPage.Designer.cs">
+      <DependentUpon>itemControlPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="permissionsPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="permissionsPage.Designer.cs">
+      <DependentUpon>permissionsPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceConsumer.cs" />
+    <Compile Include="Supplier.cs">
+      <DependentUpon>AppModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SupplierPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SupplierPage.Designer.cs">
+      <DependentUpon>SupplierPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SupplyPermission.cs">
+      <DependentUpon>AppModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SupplyPermissionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SupplyPermissionForm.Designer.cs">
+      <DependentUpon>SupplyPermissionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SupplyPermissionFormHandler.cs" />
+    <Compile Include="SupplyPermissionItem.cs">
+      <DependentUpon>AppModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>AppModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Warehouse.cs">
+      <DependentUpon>AppModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="warehouseConrolForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="warehouseConrolForm.Designer.cs">
+      <DependentUpon>warehouseConrolForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="warehouseControlPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="warehouseControlPage.Designer.cs">
+      <DependentUpon>warehouseControlPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WarehouseKeeper.cs">
+      <DependentUpon>AppModel.tt</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AppMainWindow.resx">
+      <DependentUpon>AppMainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BandkingOrderPermission.resx">
+      <DependentUpon>BandkingOrderPermission.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clientPage.resx">
+      <DependentUpon>clientPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClientSupplierAddingForm.resx">
+      <DependentUpon>ClientSupplierAddingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GeneralPurposeItemForm.resx">
+      <DependentUpon>GeneralPurposeItemForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="itemControlPage.resx">
+      <DependentUpon>itemControlPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="permissionsPage.resx">
+      <DependentUpon>permissionsPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="SupplierPage.resx">
+      <DependentUpon>SupplierPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SupplyPermissionForm.resx">
+      <DependentUpon>SupplyPermissionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="warehouseConrolForm.resx">
+      <DependentUpon>warehouseConrolForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="warehouseControlPage.resx">
+      <DependentUpon>warehouseControlPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EntityDeploy Include="AppModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>AppModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="AppModel.edmx.diagram">
+      <DependentUpon>AppModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AppModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AppModel.Context.cs</LastGenOutput>
+      <DependentUpon>AppModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="AppModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AppModel.edmx</DependentUpon>
+      <LastGenOutput>AppModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
